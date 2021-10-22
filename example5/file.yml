@@ -1,0 +1,17 @@
+---
+var1: test
+var2:
+  - test1
+  - test2
+var3:
+  var4: test3
+  var5: test3
+
+users:
+  name: mark
+  job: itsm
+  skills:
+    - bash
+    - python
+
+users: { name: mark, job: itsm, skills: ['bash', python] }

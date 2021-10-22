@@ -1,0 +1,9 @@
+---
+- name: show blocks and when
+  hosts: all
+  become: yes
+
+  tasks:
+    - name: Check and Pring Linux version
+      debug: 
+        msg: "{{ ansible_os_family }}"

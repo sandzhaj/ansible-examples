@@ -1,0 +1,7 @@
+---
+source_nginx_file: site_config.conf
+dest_nginx_dir: /etc/nginx/conf.d/
+site_dir: /var/www/example.com/
+packages:
+    - nginx
+    - vim

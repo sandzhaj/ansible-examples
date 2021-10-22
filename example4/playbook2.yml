@@ -1,0 +1,22 @@
+---
+- name: show format args, and VARS
+  hosts: all
+  become: yes
+
+  vars:
+    source_file: ./remote_file
+    dest_dir: /tmp/
+    
+  tasks:
+    - name: Copy file
+      copy:
+        src: "{{ source_file }}"
+        dest: "{{ dest_dir }}"
+
+    - name: Installing web-server
+      apt: name=nginx state=latest
+
+    - name: Installing VIM
+      apt:
+        name: vim
+        state: latest

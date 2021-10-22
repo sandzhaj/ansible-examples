@@ -1,0 +1,30 @@
+---
+- name: Show loop
+  hosts: ubuntu
+  become: yes
+
+  vars:
+    source_file: ./remote_file
+    dest_dir: /tmp/
+    #packages: [nginx, vim]
+    packages:
+      - nginx
+      - vim
+  tasks:
+    - name: Copy file
+      copy:
+        src: "{{ source_file }}"
+        dest: "{{ dest_dir }}"
+        mode: 0777
+
+    - name: Installing Packages
+      apt:
+        name: "{{ item }}"
+        state: latest
+      loop: "{{ packages }}"
+
+    - name: Start webServer and enable it on boot
+      service:
+        name: nginx
+        state: started
+        enabled: yes

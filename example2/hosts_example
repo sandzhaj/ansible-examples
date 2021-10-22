@@ -1,0 +1,12 @@
+[prod_app1]
+ip_app
+ip_db
+
+[prod_app2]
+ip_app
+ip_db
+
+
+[pord_app_all:children]
+prod_app1
+prod_app2

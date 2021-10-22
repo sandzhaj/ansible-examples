@@ -1,0 +1,50 @@
+---
+- name: show blocks and when
+  hosts: all
+  become: yes
+
+  tasks:
+    # For Centos, feroda, etc
+    - block: 
+      - name: Install packages
+        yum:
+          name: httpd
+          state: present
+      - name: Enable service
+        service:
+          name: httpd
+          state: started
+      when: ansible_os_family == "RedHat"
+    
+    # For Ubuntu, debian, linux mint, etc
+    - block:
+      - name: Install packages
+        apt:
+          name: apache2
+          state: present
+      - name: Enable service
+        service:
+          name: apache2
+          state: started
+      when: ansible_os_family == "Debian"
+    
+    - name: Copy apache config
+      copy:
+        src: "./mysite/site_config.conf"
+        dest: "/tmp/"
+        mode: 0777
+      notify:
+        - Restart apache RedHat
+        - Restart apache Debian
+
+  handlers:
+    - name: Restart apache RedHat
+      service:
+        name: httpd
+        state: restarted
+      when: ansible_os_family == "RedHat"
+    - name: Restart apache Debian
+      service:
+        name: apache2
+        state: restarted
+      when: ansible_os_family == "Debian"

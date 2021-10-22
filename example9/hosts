@@ -1,0 +1,12 @@
+[ubuntu]
+server2  ansible_host=10.201.63.93
+
+[centos]
+server1  ansible_host=10.201.63.18
+
+[servers:children]
+ubuntu
+centos
+
+[servers:vars]
+ansible_user=root

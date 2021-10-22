@@ -1,0 +1,9 @@
+ansible_user:            root
+ansible_ssh_private_key: /home/mminakou/.ssh/id_rsa
+
+source_nginx_file: mysite/site_config.conf
+dest_nginx_dir: /etc/nginx/conf.d/
+site_dir: /var/www/example.com/
+packages:
+    - nginx
+    - vim

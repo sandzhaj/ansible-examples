@@ -1,0 +1,31 @@
+---
+    - name: Copy nginx config
+      copy:
+        src: "{{ source_nginx_file }}"
+        dest: "{{ dest_nginx_dir }}"
+        mode: 0777
+      notify: Restart nginx
+
+    - name: Check if site dir exist
+      file:
+        path: "{{ site_dir }}"
+        state: directory
+        mode: 0777
+
+    - name: Copy website
+      template:
+        src: webpage.j2
+        dest: "{{ site_dir }}/index.html"
+        mode: 0777
+
+    - name: Installing Packages
+      apt:
+        name: "{{ item }}"
+        state: present
+      loop: "{{ packages }}"
+
+    - name: Start webServer and enable it on boot
+      service:
+        name: nginx
+        state: started
+        enabled: yes

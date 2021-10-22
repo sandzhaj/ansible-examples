@@ -1,0 +1,6 @@
+---
+- name: Show handlers
+  hosts: ubuntu
+  become: yes
+  roles:
+    - deploy_web_server

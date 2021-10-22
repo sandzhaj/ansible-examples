@@ -1,0 +1,23 @@
+---
+- name: show loops
+  hosts: all
+  become: yes
+
+  tasks:
+    - name: Print list
+      debug: 
+        msg: "{{ item }}"
+      loop:
+        - one
+        - two
+
+    - name: Print Until example
+      shell: echo -n Z >> file && cat file
+      register: output
+      # delay: 2
+      # retries: 10
+      until: output.stdout.find("ZZZZ") == false
+      
+    - name: Show me output
+      debug:
+        var: output.stdout

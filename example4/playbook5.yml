@@ -1,0 +1,12 @@
+---
+- name: show set fact
+  hosts: all
+  become: yes
+  
+  tasks:
+    - name: Set fact
+      set_fact:
+        one_fact: "something + {{ ansible_distribution }}"
+
+    - name: show output
+      debug: msg="{{ one_fact }}"

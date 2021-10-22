@@ -1,0 +1,23 @@
+---
+- name: copy, format args, register, debug, shell
+  hosts: all
+
+  tasks:
+
+  # - name: Get uptipe
+  #   shell: uptime 
+  #   register: my_uptime 
+
+  # - name: Print our output 
+  #   debug: msg=" {{ my_uptime }}  "
+
+  # - debug: msg=my_uptime.stdout
+
+  # - name: Show me result
+  #   debug: msg="{{ my_uptime.stdout }}"
+
+
+   - name: Copy file
+     copy: 
+      src: ./remote_file 
+      dest: /tmp/

@@ -1,0 +1,29 @@
+---
+- name: show blocks and when
+  hosts: all
+  become: yes
+
+  tasks:
+    - name: Check and Pring Linux version
+      debug: 
+        msg: "{{ ansible_os_family }}, {{ packages }}"
+
+    - name: Install depends on RedHat linux
+      yum:
+        name: "epel-release" 
+        state: present
+      when: ansible_os_family == "RedHat"
+
+    - name: Install packages on RedHat linux
+      yum:
+        name: "{{ item }}" 
+        state: present
+      loop: "{{ packages }}"
+      when: ansible_os_family == "RedHat"
+
+    - name: Install packages on RedHat linux
+      apt:
+        name: "{{ item }}" 
+        state: present
+      loop: "{{ packages }}"
+      when: ansible_os_family == "Debian"
