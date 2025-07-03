@@ -1,0 +1,39 @@
+version: "3.9"
+
+services:
+  ubuntu1:
+    build: .
+    container_name: ubuntu1
+    privileged: true
+    ports:
+      - 221:22
+    networks:
+      mynet:
+        ipv4_address: 172.31.0.11
+
+  ubuntu2:
+    build: .
+    container_name: ubuntu2
+    privileged: true
+    ports:
+      - 222:22
+    networks:
+      mynet:
+        ipv4_address: 172.31.0.12
+
+  ubuntu3:
+    build: .
+    container_name: ubuntu3
+    privileged: true
+    ports:
+      - 223:22
+    networks:
+      mynet:
+        ipv4_address: 172.31.0.13
+
+networks:
+  mynet:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.31.0.0/16
